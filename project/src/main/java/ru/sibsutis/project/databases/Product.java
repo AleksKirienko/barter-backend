@@ -2,7 +2,10 @@ package ru.sibsutis.project.databases;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 @Table(name = "products")
@@ -66,6 +69,6 @@ public class Product {
     }
 
     public void setUsersFaves(List<User> usersFaves) {
-        this.usersFaves = usersFaves;
+        this.usersFaves = Objects.requireNonNullElseGet(usersFaves, ArrayList::new);;
     }
 }

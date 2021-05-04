@@ -14,12 +14,6 @@ public class BarterController {
         return "authorization";
     }
 
-    @RequestMapping(value = "/r", method = RequestMethod.GET)
-    private String registration(@RequestParam User user) {
-
-        return null;//todo
-    }
-
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     private String mainPage() {
         return null;//todo
@@ -30,10 +24,6 @@ public class BarterController {
         return null;//todo
     }
 
-    @RequestMapping(value = "/a", method = RequestMethod.GET)
-    private String addNewProduct() {
-        return null;//todo
-    }
 
 
 

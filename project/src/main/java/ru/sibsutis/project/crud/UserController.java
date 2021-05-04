@@ -17,8 +17,13 @@ public class UserController {
         this.service = service;
     }
 
-    @PostMapping
-    public User createUser(@RequestBody UserDto userDto) {
+    @PostMapping("/r")
+    public User registrationUser(@RequestBody UserDto userDto) {
         return service.create(userDto);
+    }
+
+    @PostMapping("/a")
+    public User authorizationUser(@RequestBody String email, @RequestBody String password) {
+        return service.authorization(email, password);
     }
 }

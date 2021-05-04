@@ -3,6 +3,7 @@ package ru.sibsutis.project.dto;
 public class UserDto {
     private final String name;
     private final String number;
+
     private final String email;
     private final String password;
     private final boolean isInteractionPost;
