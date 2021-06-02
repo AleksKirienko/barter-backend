@@ -24,6 +24,10 @@ public class Product {
     @JoinTable(name = "users_products", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name ="user_id"))
     List<User> usersFaves;
 
+    @OneToMany(mappedBy = "product")
+    List<Product> productsForExchange;
+
+
     public Long getId() {
         return id;
     }
@@ -70,5 +74,13 @@ public class Product {
 
     public void setUsersFaves(List<User> usersFaves) {
         this.usersFaves = Objects.requireNonNullElseGet(usersFaves, ArrayList::new);;
+    }
+
+    public List<Product> getProductsForExchange() {
+        return productsForExchange;
+    }
+
+    public void setProductsForExchange(List<Product> productsForExchange) {
+        this.productsForExchange = productsForExchange;
     }
 }

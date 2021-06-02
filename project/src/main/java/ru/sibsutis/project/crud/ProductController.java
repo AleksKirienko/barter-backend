@@ -30,4 +30,9 @@ public class ProductController {
         service.delete(productID);
     }
 
+    @PostMapping("/myproducts")
+    public List<Product> getProductsByUserId(@RequestParam Long userId) {
+        return service.getById(userId);
+    }
+
 }

@@ -8,6 +8,7 @@ import ru.sibsutis.project.databases.User;
 import ru.sibsutis.project.dto.ProductDto;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -44,5 +45,10 @@ public class ProductService {
 
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    public List<Product> getById(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
+        return repository.findByOwner(user);
     }
 }
