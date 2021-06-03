@@ -1,8 +1,11 @@
 package ru.sibsutis.project.crud;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import ru.sibsutis.project.AuthorizationRow;
+import ru.sibsutis.project.databases.Product;
 import ru.sibsutis.project.databases.User;
+import ru.sibsutis.project.dto.ProductDto;
 import ru.sibsutis.project.dto.UserDto;
 
 @RestController
@@ -15,16 +18,20 @@ public class UserController {
         this.service = service;
     }
 
-
+    private UserDto copyToDto(User user) {
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(user, userDto, "id", "favorites");
+        return userDto;
+    }
 
     @PostMapping("/reg")
-    public User registrationUser(@RequestBody UserDto userDto) {
-        return service.create(userDto);
+    public UserDto registrationUser(@RequestBody UserDto userDto) {
+        return copyToDto(service.create(userDto));
     }
 
     @PostMapping("/auth")
-    public User authorizationUser(@RequestBody AuthorizationRow row) {
-        return service.authorization(row.getEmail(), row.getPassword());
+    public UserDto authorizationUser(@RequestBody AuthorizationRow row) {
+        return copyToDto(service.authorization(row.getEmail(), row.getPassword()));
     }
 
     @PostMapping("/info")

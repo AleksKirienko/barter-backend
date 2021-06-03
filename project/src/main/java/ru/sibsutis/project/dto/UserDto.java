@@ -1,16 +1,18 @@
 package ru.sibsutis.project.dto;
 
 public class UserDto {
-    private final String name;
+    private String name;
 
-    private final String email;
-    private final String password;
+    private String email;
+    private String password;
 
     public UserDto(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
+
+    public UserDto() {}
 
     public String getName() {
         return name;
