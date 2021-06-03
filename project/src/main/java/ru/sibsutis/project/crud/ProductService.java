@@ -57,6 +57,10 @@ public class ProductService {
         return user.getFavorites();
     }
 
+    public List<Product> getExchangesByProductId(Long productId) {
+        return repository.findById(productId).orElseThrow(NotFoundException::new).getProductsForExchange();
+    }
+
     public List<Product> getProductsByCategory(String category) {
         return repository.findByCategory(category);
     }

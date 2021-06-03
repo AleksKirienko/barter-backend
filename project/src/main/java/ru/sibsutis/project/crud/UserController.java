@@ -36,4 +36,9 @@ public class UserController {
     public UserDto userInfo(@RequestParam Long userId) {
         return copyToDto(service.getUserInfo(userId));
     }
+
+    @PostMapping("/add_faves")
+    public void addFaves(@RequestBody Long productId, @RequestParam Long userId) {
+        service.addFaves(productId, userId);
+    }
 }

@@ -55,6 +55,10 @@ public class User {
         this.favorites = Objects.requireNonNullElseGet(favorites, ArrayList::new);
     }
 
+    public void addFavorites(Product product) {
+        favorites.add(product);
+    }
+
     public String getPassword() {
         return password;
     }

@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ru.sibsutis.project.AuthorizationFault;
 import ru.sibsutis.project.NotFoundException;
 import ru.sibsutis.project.UserAlreadyExistException;
+import ru.sibsutis.project.databases.Product;
 import ru.sibsutis.project.databases.User;
 import org.springframework.stereotype.Service;
 import ru.sibsutis.project.dto.UserDto;
@@ -16,9 +17,11 @@ public class UserService {
 
 
     private final UserRepository repository;
+    private final ProductRepository productRepository;
 
-    public UserService(UserRepository repository) {
+    public UserService(UserRepository repository, ProductRepository productRepository) {
         this.repository = repository;
+        this.productRepository = productRepository;
     }
 
     public User get(Long id) {
@@ -62,7 +65,12 @@ public class UserService {
     }
 
     public User getUserInfo(Long userId) {
+        return repository.findById(userId).orElseThrow(NotFoundException::new);
+    }
+
+    public void addFaves(Long productId, Long userId) {
+        Product product = productRepository.findById(productId).orElseThrow(NotFoundException::new);
         User user = repository.findById(userId).orElseThrow(NotFoundException::new);
-        return user;
+        user.addFavorites(product);
     }
 }
