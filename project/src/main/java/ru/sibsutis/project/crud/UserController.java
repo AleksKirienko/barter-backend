@@ -15,17 +15,19 @@ public class UserController {
         this.service = service;
     }
 
-    @PostMapping("/r")
+
+
+    @PostMapping("/reg")
     public User registrationUser(@RequestBody UserDto userDto) {
         return service.create(userDto);
     }
 
-    @PostMapping("/a")
+    @PostMapping("/auth")
     public User authorizationUser(@RequestBody AuthorizationRow row) {
         return service.authorization(row.getEmail(), row.getPassword());
     }
 
-    @PostMapping("/")
+    @PostMapping("/info")
     public String userInfo(@RequestParam Long userId) {
         return service.getUserInfo(userId);
     }
