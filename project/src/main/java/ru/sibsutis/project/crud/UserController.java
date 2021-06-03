@@ -3,9 +3,7 @@ package ru.sibsutis.project.crud;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import ru.sibsutis.project.AuthorizationRow;
-import ru.sibsutis.project.databases.Product;
 import ru.sibsutis.project.databases.User;
-import ru.sibsutis.project.dto.ProductDto;
 import ru.sibsutis.project.dto.UserDto;
 
 @RestController
