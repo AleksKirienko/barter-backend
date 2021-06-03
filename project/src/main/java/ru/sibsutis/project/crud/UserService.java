@@ -24,15 +24,6 @@ public class UserService {
         this.productRepository = productRepository;
     }
 
-    public User get(Long id) {
-        return repository.findById(id)
-                .orElse(null);
-    }
-
-    public List<User> getAll() {
-        return repository.findAll();
-    }
-
     public User create(UserDto userDto) {
         User user = new User();
         boolean isExist = repository.existsUserByEmail(userDto.getEmail());
@@ -42,17 +33,10 @@ public class UserService {
 
         BeanUtils.copyProperties(userDto, user, "password");
         user.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
+        user.setFavorites();
         return repository.save(user);
     }
 
-    public User update(Long id) {
-        User savedUser = repository.findById(id).orElseThrow(NotFoundException::new);
-        return repository.save(savedUser);
-    }
-
-    public void delete(Long id) {
-        repository.deleteById(id);
-    }
 
     public User authorization(String email, String password) {
         User user = repository.getUserByEmail(email);

@@ -55,6 +55,10 @@ public class User {
         this.favorites = Objects.requireNonNullElseGet(favorites, ArrayList::new);
     }
 
+    public void setFavorites() {
+        this.favorites = new ArrayList<>();
+    }
+
     public void addFavorites(Product product) {
         favorites.add(product);
     }
