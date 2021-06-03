@@ -38,7 +38,6 @@ public class UserService {
         }
 
         BeanUtils.copyProperties(userDto, user, "password");
-        user.setPrivileged(false);
         user.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
         return repository.save(user);
     }

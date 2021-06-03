@@ -5,7 +5,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Entity
 @Table(name = "products")
@@ -26,7 +25,8 @@ public class Product {
     @JoinTable(name = "users_products", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name ="user_id"))
     List<User> usersFaves;
 
-    @OneToMany(mappedBy = "product")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "product_product", joinColumns = @JoinColumn(name = "available_product_id"), inverseJoinColumns = @JoinColumn(name ="exchange_product_id"))
     List<Product> productsForExchange;
 
 

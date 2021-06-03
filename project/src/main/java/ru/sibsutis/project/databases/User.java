@@ -22,8 +22,6 @@ public class User {
     @JoinTable(name = "users_products", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> favorites;
 
-    private boolean isPrivileged;
-
     public Long getId() {
         return id;
     }
@@ -55,14 +53,6 @@ public class User {
 
     public void setFavorites(List<Product> favorites) {
         this.favorites = Objects.requireNonNullElseGet(favorites, ArrayList::new);
-    }
-
-    public boolean isPrivileged() {
-        return isPrivileged;
-    }
-
-    public void setPrivileged(boolean privileged) {
-        isPrivileged = privileged;
     }
 
     public String getPassword() {
