@@ -60,4 +60,9 @@ public class UserService {
             else throw new AuthorizationFault();
         }
     }
+
+    public String getUserInfo(Long userId) {
+        User user = repository.findById(userId).orElseThrow(NotFoundException::new);
+        return user.getEmail();
+    }
 }

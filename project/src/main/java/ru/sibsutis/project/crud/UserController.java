@@ -1,9 +1,6 @@
 package ru.sibsutis.project.crud;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.sibsutis.project.AuthorizationRow;
 import ru.sibsutis.project.databases.User;
 import ru.sibsutis.project.dto.UserDto;
@@ -26,5 +23,10 @@ public class UserController {
     @PostMapping("/a")
     public User authorizationUser(@RequestBody AuthorizationRow row) {
         return service.authorization(row.getEmail(), row.getPassword());
+    }
+
+    @PostMapping("/")
+    public String userInfo(@RequestParam Long userId) {
+        return service.getUserInfo(userId);
     }
 }
