@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.sibsutis.project.AuthorizationRow;
 import ru.sibsutis.project.databases.User;
 import ru.sibsutis.project.dto.UserDto;
+import ru.sibsutis.project.dto.UserDtoWithId;
 
 @RestController
 @RequestMapping("/api/user")
@@ -16,6 +17,12 @@ public class UserController {
         this.service = service;
     }
 
+    private UserDtoWithId copyToUserDtoWithId(User user) {
+        UserDtoWithId userDtoWithId = new UserDtoWithId();
+        BeanUtils.copyProperties(user, userDtoWithId, "favorites");
+        return userDtoWithId;
+    }
+
     private UserDto copyToDto(User user) {
         UserDto userDto = new UserDto();
         BeanUtils.copyProperties(user, userDto, "id", "favorites");
@@ -23,13 +30,14 @@ public class UserController {
     }
 
     @PostMapping("/reg")
-    public User registrationUser(@RequestBody UserDto userDto) {
-        return service.create(userDto);
+    public UserDtoWithId registrationUser(@RequestBody UserDto userDto) {
+        return copyToUserDtoWithId(service.create(userDto));
     }
 
+
     @PostMapping("/auth")
-    public User authorizationUser(@RequestBody AuthorizationRow row) {
-        return service.authorization(row.getEmail(), row.getPassword());
+    public UserDtoWithId authorizationUser(@RequestBody AuthorizationRow row) {
+        return copyToUserDtoWithId(service.authorization(row.getEmail(), row.getPassword()));
     }
 
     @PostMapping("/info")
