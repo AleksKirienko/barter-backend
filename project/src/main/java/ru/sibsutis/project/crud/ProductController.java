@@ -78,4 +78,10 @@ public class ProductController {
         service.deleteExchange(availableId, exchangeId);
     }
 
+    @PostMapping("/delete_product")
+    public void deleteProduct(@RequestParam Long productId) {
+        service.delete(productId);
+    }
+
+
 }
