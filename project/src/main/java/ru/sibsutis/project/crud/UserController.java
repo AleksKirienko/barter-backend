@@ -23,13 +23,13 @@ public class UserController {
     }
 
     @PostMapping("/reg")
-    public UserDto registrationUser(@RequestBody UserDto userDto) {
-        return copyToDto(service.create(userDto));
+    public User registrationUser(@RequestBody UserDto userDto) {
+        return service.create(userDto);
     }
 
     @PostMapping("/auth")
-    public UserDto authorizationUser(@RequestBody AuthorizationRow row) {
-        return copyToDto(service.authorization(row.getEmail(), row.getPassword()));
+    public User authorizationUser(@RequestBody AuthorizationRow row) {
+        return service.authorization(row.getEmail(), row.getPassword());
     }
 
     @PostMapping("/info")
