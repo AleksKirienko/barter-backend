@@ -4,6 +4,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import ru.sibsutis.project.databases.Product;
 import ru.sibsutis.project.dto.ProductDto;
+import ru.sibsutis.project.dto.ProductDtoWithId;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,23 +18,23 @@ public class ProductController {
         this.service = service;
     }
 
-    private ProductDto copyToDto(Product product) {
-        ProductDto productDto = new ProductDto();
-        BeanUtils.copyProperties(product, productDto, "id", "owner", "status", "userFaves", "productsForExchange");
+    private ProductDtoWithId copyToDto(Product product) {
+        ProductDtoWithId productDto = new ProductDtoWithId();
+        BeanUtils.copyProperties(product, productDto, "owner", "status", "userFaves", "productsForExchange");
         return productDto;
     }
 
-    private List<ProductDto> copyToDto(List<Product> products) {
+    private List<ProductDtoWithId> copyToDto(List<Product> products) {
         return products.stream().map(this::copyToDto).collect(Collectors.toList());
     }
 
     @GetMapping("/all")
-    public List<ProductDto> getAllProducts() {
+    public List<ProductDtoWithId> getAllProducts() {
         return copyToDto(service.getAll());
     }
 
     @PostMapping("/add")
-    public ProductDto addNewProduct(@RequestBody ProductDto productDto, @RequestParam Long userID) {
+    public ProductDtoWithId addNewProduct(@RequestBody ProductDto productDto, @RequestParam Long userID) {
         return copyToDto(service.create(productDto, userID));
     }
 
@@ -43,12 +44,12 @@ public class ProductController {
     }
 
     @PostMapping("/myproducts")
-    public List<ProductDto> getProductsByUserId(@RequestParam Long userId) {
+    public List<ProductDtoWithId> getProductsByUserId(@RequestParam Long userId) {
         return copyToDto(service.getById(userId));
     }
 
     @PostMapping("/faves")
-    public List<ProductDto> getFavesByUserId(@RequestParam Long userId) {
+    public List<ProductDtoWithId> getFavesByUserId(@RequestParam Long userId) {
         return copyToDto(service.getFavesById(userId));
     }
 
@@ -63,12 +64,12 @@ public class ProductController {
     }
 
     @PostMapping("/product_info")
-    public ProductDto productDtoInfo(@RequestParam Long productId) {
+    public ProductDtoWithId productDtoInfo(@RequestParam Long productId) {
         return copyToDto(service.productInfo(productId));
     }
 
     @PostMapping("/exchanges")
-    public List<ProductDto> getProductsForExchange(@RequestParam Long productId) {
+    public List<ProductDtoWithId> getProductsForExchange(@RequestParam Long productId) {
         return copyToDto(service.getExchangesByProductId(productId));
     }
 
