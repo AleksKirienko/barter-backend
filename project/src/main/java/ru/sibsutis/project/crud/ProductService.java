@@ -81,4 +81,8 @@ public class ProductService {
             p.addToExchange(product);
         }
     }
+
+    public Product productInfo(Long productId) {
+        return repository.findById(productId).orElseThrow(NotFoundException::new);
+    }
 }

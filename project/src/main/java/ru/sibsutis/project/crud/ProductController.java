@@ -62,5 +62,10 @@ public class ProductController {
         service.addFromHome(productId, productsId);
     }
 
+    @PostMapping("/product_info")
+    public ProductDto productDtoInfo(@RequestParam Long productId) {
+        return copyToDto(service.productInfo(productId));
+    }
+
 
 }
