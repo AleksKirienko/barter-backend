@@ -61,8 +61,8 @@ public class UserService {
         }
     }
 
-    public String getUserInfo(Long userId) {
+    public User getUserInfo(Long userId) {
         User user = repository.findById(userId).orElseThrow(NotFoundException::new);
-        return user.getEmail();
+        return user;
     }
 }

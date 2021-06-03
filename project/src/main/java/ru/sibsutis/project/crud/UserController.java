@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/info")
-    public String userInfo(@RequestParam Long userId) {
-        return service.getUserInfo(userId);
+    public UserDto userInfo(@RequestParam Long userId) {
+        return copyToDto(service.getUserInfo(userId));
     }
 }
