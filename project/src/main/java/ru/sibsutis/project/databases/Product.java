@@ -20,6 +20,7 @@ public class Product {
     private String category;
     private String description;
     private String image;
+    private boolean status;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_products", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name ="user_id"))
@@ -100,5 +101,13 @@ public class Product {
 
     public void addToExchange(List<Product> products) {
         productsForExchange.addAll(products);
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

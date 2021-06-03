@@ -34,6 +34,7 @@ public class ProductService {
         BeanUtils.copyProperties(productDto, product);
         User owner = userRepository.findById(userID).orElseThrow(NotFoundException::new);
         product.setOwner(owner);
+        product.setStatus(true);//В КОНЕЧНОЙ ВЕРСИИ БУДЕТ ИЗНАЧАЛЬНО false. На true меняется при поступлении товара в офис
         return repository.save(product);
     }
 
