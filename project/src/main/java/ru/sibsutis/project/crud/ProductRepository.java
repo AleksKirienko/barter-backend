@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByOwner(User user);
+
+    List<Product> findByCategory(String category);
 }

@@ -1,9 +1,9 @@
 package ru.sibsutis.project.crud;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 import ru.sibsutis.project.NotFoundException;
 import ru.sibsutis.project.databases.Product;
-import org.springframework.stereotype.Service;
 import ru.sibsutis.project.databases.User;
 import ru.sibsutis.project.dto.ProductDto;
 
@@ -57,9 +57,13 @@ public class ProductService {
         return user.getFavorites();
     }
 
+    public List<Product> getProductsByCategory(String category) {
+        return repository.findByCategory(category);
+    }
+
     public void addFromProfile(Long productId, List<Long> productsId) {
         Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
-        for (Long id: productsId) {
+        for (Long id : productsId) {
             Product p = repository.findById(id).orElseThrow(NotFoundException::new);
             product.addToExchange(p);
         }
@@ -68,7 +72,7 @@ public class ProductService {
 
     public void addFromHome(Long productId, List<Long> productsId) {
         Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
-        for (Long id: productsId) {
+        for (Long id : productsId) {
             Product p = repository.findById(id).orElseThrow(NotFoundException::new);
             p.addToExchange(product);
         }

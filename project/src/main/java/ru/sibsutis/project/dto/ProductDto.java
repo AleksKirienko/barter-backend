@@ -1,16 +1,19 @@
 package ru.sibsutis.project.dto;
 
 public class ProductDto {
-    private final String name;
-    private final String category;
-    private final String description;
-    private final String image;
+    private String name;
+    private String category;
+    private String description;
+    private String image;
 
     public ProductDto(String name, String category, String description, String image) {
         this.name = name;
         this.category = category;
         this.description = description;
         this.image = image;
+    }
+
+    public ProductDto() {
     }
 
 
