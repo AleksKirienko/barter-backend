@@ -61,6 +61,7 @@ public class ProductService {
             Product p = repository.findById(id).orElseThrow(NotFoundException::new);
             product.addToExchange(p);
         }
+        repository.save(product);
     }
 
 
@@ -70,6 +71,7 @@ public class ProductService {
             Product p = repository.findById(id).orElseThrow(NotFoundException::new);
             p.addToExchange(product);
         }
+        repository.save(product);
     }
 
     public Product productInfo(Long productId) {

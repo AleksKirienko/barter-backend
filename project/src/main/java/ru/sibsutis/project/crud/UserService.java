@@ -50,10 +50,10 @@ public class UserService {
         return repository.findById(userId).orElseThrow(NotFoundException::new);
     }
 
-    public User addFaves(Long productId, Long userId) {
+    public void addFaves(Long productId, Long userId) {
         Product product = productRepository.findById(productId).orElseThrow(NotFoundException::new);
         User user = repository.findById(userId).orElseThrow(NotFoundException::new);
         user.addFavorites(product);
-        return user;
+        repository.save(user);
     }
 }

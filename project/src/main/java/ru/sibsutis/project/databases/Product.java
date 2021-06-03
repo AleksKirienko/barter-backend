@@ -87,6 +87,10 @@ public class Product {
         this.usersFaves = Objects.requireNonNullElseGet(usersFaves, ArrayList::new);;
     }
 
+    public void addUserFaves(User user) {
+        getUsersFaves().add(user);
+    }
+
     public List<Product> getProductsForExchange() {
         return productsForExchange;
     }
