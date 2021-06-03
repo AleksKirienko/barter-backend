@@ -54,12 +54,12 @@ public class ProductController {
     }
 
     @PostMapping("/fp")//todo
-    public void addFromProfile(@RequestParam Long productId, @RequestParam List<Long> productsId) {
+    public void addFromProfile(@RequestParam Long productId, @RequestBody List<Product> productsId) {
         service.addFromProfile(productId, productsId);
     }
 
     @PostMapping("/fh")//todo
-    public void addFromHomeOrFaves(@RequestParam Long productId, @RequestParam List<Long> productsId) {
+    public void addFromHomeOrFaves(@RequestParam Long productId, @RequestBody List<Product> productsId) {
         service.addFromHome(productId, productsId);
     }
 

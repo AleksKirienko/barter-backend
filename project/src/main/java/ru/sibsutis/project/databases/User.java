@@ -20,6 +20,7 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_products", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+    //@UniqueConstraint()
     private List<Product> favorites;
 
     public Long getId() {

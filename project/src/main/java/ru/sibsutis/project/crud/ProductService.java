@@ -55,20 +55,18 @@ public class ProductService {
         return repository.findByCategory(category);
     }
 
-    public void addFromProfile(Long productId, List<Long> productsId) {
+    public void addFromProfile(Long productId, List<Product> products) {
         Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
-        for (Long id : productsId) {
-            Product p = repository.findById(id).orElseThrow(NotFoundException::new);
+        for (Product p : products) {
             product.addToExchange(p);
         }
         repository.save(product);
     }
 
 
-    public void addFromHome(Long productId, List<Long> productsId) {
+    public void addFromHome(Long productId, List<Product> products) {
         Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
-        for (Long id : productsId) {
-            Product p = repository.findById(id).orElseThrow(NotFoundException::new);
+        for (Product p : products) {
             p.addToExchange(product);
         }
         repository.save(product);
