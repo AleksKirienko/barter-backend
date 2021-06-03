@@ -20,11 +20,6 @@ public class ProductService {
         this.userRepository = userRepository;
     }
 
-    public Product get(Long id) {
-        return repository.findById(id)
-                .orElse(null);
-    }
-
     public List<Product> getAll() {
         return repository.findAll();
     }
@@ -36,11 +31,6 @@ public class ProductService {
         product.setOwner(owner);
         product.setStatus(true);//В КОНЕЧНОЙ ВЕРСИИ БУДЕТ ИЗНАЧАЛЬНО false. На true меняется при поступлении товара в офис
         return repository.save(product);
-    }
-
-    public Product update(Long id) {
-        Product savedProduct = repository.findById(id).orElseThrow(NotFoundException::new);
-        return repository.save(savedProduct);
     }
 
     public void delete(Long id) {
