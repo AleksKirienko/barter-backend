@@ -13,13 +13,10 @@ public class User {
     private Long id;
 
     private String name;
-    private String number;
 
     @Column(unique=true)
     private String email;
     private String password;
-    private boolean isInteractionPost;
-    private String address;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_products", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
@@ -43,13 +40,6 @@ public class User {
         this.name = name;
     }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
 
     public String getEmail() {
         return email;
@@ -57,22 +47,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public boolean isInteractionPost() {
-        return isInteractionPost;
-    }
-
-    public void setInteractionPost(boolean interactionPost) {
-        isInteractionPost = interactionPost;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public List<Product> getFavorites() {

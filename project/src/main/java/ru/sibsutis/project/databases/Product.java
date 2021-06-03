@@ -13,6 +13,8 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String name;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id")
     private User owner;
@@ -34,6 +36,14 @@ public class Product {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public User getOwner() {
@@ -82,5 +92,13 @@ public class Product {
 
     public void setProductsForExchange(List<Product> productsForExchange) {
         this.productsForExchange = productsForExchange;
+    }
+
+    public void addToExchange(Product product) {
+        productsForExchange.add(product);
+    }
+
+    public void addToExchange(List<Product> products) {
+        productsForExchange.addAll(products);
     }
 }

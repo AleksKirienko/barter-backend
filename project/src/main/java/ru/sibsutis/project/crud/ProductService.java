@@ -8,7 +8,6 @@ import ru.sibsutis.project.databases.User;
 import ru.sibsutis.project.dto.ProductDto;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -50,5 +49,27 @@ public class ProductService {
     public List<Product> getById(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
         return repository.findByOwner(user);
+    }
+
+    public List<Product> getFavesById(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
+        return user.getFavorites();
+    }
+
+    public void addFromProfile(Long productId, List<Long> productsId) {
+        Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
+        for (Long id: productsId) {
+            Product p = repository.findById(id).orElseThrow(NotFoundException::new);
+            product.addToExchange(p);
+        }
+    }
+
+
+    public void addFromHome(Long productId, List<Long> productsId) {
+        Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
+        for (Long id: productsId) {
+            Product p = repository.findById(id).orElseThrow(NotFoundException::new);
+            p.addToExchange(product);
+        }
     }
 }

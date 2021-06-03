@@ -35,4 +35,19 @@ public class ProductController {
         return service.getById(userId);
     }
 
+    @PostMapping("/faves")
+    public List<Product> getFavesByUserId(@RequestParam Long userId) {
+        return service.getFavesById(userId);
+    }
+
+    @PostMapping("/fp")//todo
+    public void addFromProfile(@RequestParam Long productId, @RequestParam List<Long> productsId) {
+        service.addFromProfile(productId, productsId);
+    }
+
+    @PostMapping("/fh")//todo
+    public void addFromHomeOrFaves(@RequestParam Long productId, @RequestParam List<Long> productsId) {
+        service.addFromHome(productId, productsId);
+    }
+
 }
