@@ -41,4 +41,9 @@ public class UserController {
     public void addFaves(@RequestParam Long productId, @RequestParam Long userId) {
         service.addFaves(productId, userId);
     }
+
+    @PostMapping("/delete_faves")
+    public void deleteFaves(@RequestParam Long productId, @RequestParam Long userId) {
+        service.deleteFaves(productId, userId);
+    }
 }

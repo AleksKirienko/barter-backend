@@ -72,4 +72,9 @@ public class ProductController {
         return copyToDto(service.getExchangesByProductId(productId));
     }
 
+    @PostMapping("/delete_exchange")
+    public void deleteExchange(@RequestParam Long availableId, @RequestParam Long exchangeId) {
+        service.deleteExchange(availableId, exchangeId);
+    }
+
 }

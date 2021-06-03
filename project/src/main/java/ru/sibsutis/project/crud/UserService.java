@@ -56,4 +56,11 @@ public class UserService {
         user.addFavorites(product);
         repository.save(user);
     }
+
+    public void deleteFaves(Long productId, Long userId) {
+        Product product = productRepository.findById(productId).orElseThrow(NotFoundException::new);
+        User user = repository.findById(userId).orElseThrow(NotFoundException::new);
+        user.deleteFavorites(product);
+        repository.save(user);
+    }
 }

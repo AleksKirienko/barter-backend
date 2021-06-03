@@ -74,6 +74,13 @@ public class ProductService {
         repository.save(product);
     }
 
+    public void deleteExchange(Long availableId, Long exchangeId) {
+        Product available = repository.findById(availableId).orElseThrow(NotFoundException::new);
+        Product exchange = repository.findById(exchangeId).orElseThrow(NotFoundException::new);
+        available.deleteFromExchange(exchange);
+        repository.save(available);
+    }
+
     public Product productInfo(Long productId) {
         return repository.findById(productId).orElseThrow(NotFoundException::new);
     }

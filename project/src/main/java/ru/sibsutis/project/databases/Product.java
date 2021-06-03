@@ -103,6 +103,10 @@ public class Product {
         productsForExchange.add(product);
     }
 
+    public void deleteFromExchange(Product product) {
+        productsForExchange.remove(product);
+    }
+
     public void addToExchange(List<Product> products) {
         productsForExchange.addAll(products);
     }

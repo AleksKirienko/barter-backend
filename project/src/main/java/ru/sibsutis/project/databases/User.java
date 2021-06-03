@@ -63,6 +63,10 @@ public class User {
         favorites.add(product);
     }
 
+    public  void deleteFavorites(Product product) {
+        favorites.remove(product);
+    }
+
     public String getPassword() {
         return password;
     }
