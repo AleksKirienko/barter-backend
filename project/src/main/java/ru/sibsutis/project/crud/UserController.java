@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping("/add_faves")
-    public void addFaves(@RequestParam Long productId, @RequestParam Long userId) {
-        service.addFaves(productId, userId);
+    public User addFaves(@RequestParam Long productId, @RequestParam Long userId) {
+        return service.addFaves(productId, userId);
     }
 }

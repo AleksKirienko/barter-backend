@@ -10,8 +10,6 @@ import ru.sibsutis.project.databases.User;
 import org.springframework.stereotype.Service;
 import ru.sibsutis.project.dto.UserDto;
 
-import java.util.List;
-
 @Service
 public class UserService {
 
@@ -52,9 +50,10 @@ public class UserService {
         return repository.findById(userId).orElseThrow(NotFoundException::new);
     }
 
-    public void addFaves(Long productId, Long userId) {
+    public User addFaves(Long productId, Long userId) {
         Product product = productRepository.findById(productId).orElseThrow(NotFoundException::new);
         User user = repository.findById(userId).orElseThrow(NotFoundException::new);
         user.addFavorites(product);
+        return user;
     }
 }

@@ -67,5 +67,9 @@ public class ProductController {
         return copyToDto(service.productInfo(productId));
     }
 
+    @PostMapping("/exchanges")
+    public List<ProductDto> getProductsForExchange(@RequestParam Long productId) {
+        return copyToDto(service.getExchangesByProductId(productId));
+    }
 
 }
