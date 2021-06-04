@@ -82,4 +82,10 @@ public class ProductService {
     public Product productInfo(Long productId) {
         return repository.findById(productId).orElseThrow(NotFoundException::new);
     }
+
+    public boolean isFaves(Long productId, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
+        Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
+        return user.getFavorites().contains(product);
+    }
 }

@@ -83,5 +83,9 @@ public class ProductController {
         service.delete(productId);
     }
 
+    @PostMapping("/return_faves")
+    public boolean isFaves(@RequestParam Long productId, @RequestParam Long userId) {
+        return service.isFaves(productId, userId);
+    }
 
 }
