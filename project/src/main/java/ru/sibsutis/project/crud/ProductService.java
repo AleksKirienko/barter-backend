@@ -27,7 +27,8 @@ public class ProductService {
 
     public Product create(ProductDto productDto, Long userID) {
         Product product = new Product();
-        BeanUtils.copyProperties(productDto, product);
+        BeanUtils.copyProperties(productDto, product, "name");
+        product.setName(productDto.getName().toLowerCase());
         User owner = userRepository.findById(userID).orElseThrow(NotFoundException::new);
         product.setOwner(owner);
         product.setStatus(true);//В КОНЕЧНОЙ ВЕРСИИ БУДЕТ ИЗНАЧАЛЬНО false. На true меняется при поступлении товара в офис
