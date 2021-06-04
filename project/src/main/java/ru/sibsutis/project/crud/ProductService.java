@@ -6,6 +6,7 @@ import ru.sibsutis.project.NotFoundException;
 import ru.sibsutis.project.databases.Product;
 import ru.sibsutis.project.databases.User;
 import ru.sibsutis.project.dto.ProductDto;
+import ru.sibsutis.project.dto.ProductDtoWithId;
 
 import java.util.List;
 
@@ -87,5 +88,9 @@ public class ProductService {
         User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
         Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
         return user.getFavorites().contains(product);
+    }
+
+    public List<Product> getByName(String name) {
+        return repository.findByName(name);
     }
 }
