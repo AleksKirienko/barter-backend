@@ -27,8 +27,7 @@ public class Product {
     List<User> usersFaves;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(uniqueConstraints = {@UniqueConstraint(columnNames = "available_product_id"),
-            @UniqueConstraint(columnNames = "exchange_product_id")}, name = "product_product", joinColumns = @JoinColumn(name = "available_product_id"), inverseJoinColumns = @JoinColumn(name ="exchange_product_id"))
+    @JoinTable(uniqueConstraints = {@UniqueConstraint(columnNames = {"available_product_id", "exchange_product_id"})}, name = "product_product", joinColumns = @JoinColumn(name = "available_product_id"), inverseJoinColumns = @JoinColumn(name ="exchange_product_id"))
     List<Product> productsForExchange;
 
 

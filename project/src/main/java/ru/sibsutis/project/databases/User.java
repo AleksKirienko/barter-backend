@@ -19,8 +19,7 @@ public class User {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable( uniqueConstraints = {@UniqueConstraint(columnNames = "user_id"),
-            @UniqueConstraint(columnNames = "product_id")}, name = "users_products",
+    @JoinTable( uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "product_id"})}, name = "users_products",
             joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> favorites;
 
