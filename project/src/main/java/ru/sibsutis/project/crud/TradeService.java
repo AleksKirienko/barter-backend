@@ -10,7 +10,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TradeService {
@@ -50,14 +49,21 @@ public class TradeService {
     }
 
     private static boolean chooseCycle(List<List<Vertex>> allCycles, List<Vertex> alreadyInclude, List<List<Vertex>> finalCycles) {
-        List<Vertex> maximum =allCycles.stream().max(Comparator.comparingInt(List::size)).orElse(null);
+        int max = 0;
+        int imax = 0;
+        for (List<Vertex> cycle : allCycles) {
+            if (cycle.size() > max && !intersects(cycle, alreadyInclude)) {
+                max = cycle.size();
+                imax = allCycles.indexOf(cycle);
+            }
+        }
 
-        if (maximum == null) {
+        if (max == 0) {
             return false;
         }
-        alreadyInclude.addAll(maximum);
-        finalCycles.add(maximum);
-        allCycles.remove(maximum);
+        alreadyInclude.addAll(allCycles.get(imax));
+        finalCycles.add(allCycles.get(imax));
+        allCycles.remove(allCycles.get(imax));
         return true;
 
     }
