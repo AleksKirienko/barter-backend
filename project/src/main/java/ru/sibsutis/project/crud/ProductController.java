@@ -53,13 +53,13 @@ public class ProductController {
         return copyToDto(service.getFavesById(userId));
     }
 
-    @PostMapping("/fp")
-    public void addFromProfile(@RequestParam Long productId, @RequestBody List<Product> productsId) {
+    @PostMapping("/fp")//Добавление из профиля
+    public void addFromProfile(@RequestParam Long productId, @RequestBody List<Long> productsId) {
         service.addFromProfile(productId, productsId);
     }
 
-    @PostMapping("/fh")
-    public void addFromHomeOrFaves(@RequestParam Long productId, @RequestBody List<Product> productsId) {
+    @PostMapping("/fh")//Добавление из домашней страницы и избранного
+    public void addFromHomeOrFaves(@RequestParam Long productId, @RequestBody List<Long> productsId) {
         service.addFromHome(productId, productsId);
     }
 

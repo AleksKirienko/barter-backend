@@ -6,6 +6,7 @@ import ru.sibsutis.project.NotFoundException;
 import ru.sibsutis.project.databases.Product;
 import ru.sibsutis.project.databases.User;
 import ru.sibsutis.project.dto.ProductDto;
+import ru.sibsutis.project.dto.ProductDtoWithId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,15 +59,23 @@ public class ProductService {
         return repository.findByCategory(category);
     }
 
-    public void addFromProfile(Long productId, List<Product> products) {
+    public void addFromProfile(Long productId, List<Long> productsId) {
         Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
+        List<Product> products = productsId.stream()
+                .map(repository::findById)
+                .map(op -> op.orElse(null))
+                .collect(Collectors.toList());
         products.forEach(product::addToExchange);
         repository.save(product);
     }
 
 
-    public void addFromHome(Long productId, List<Product> products) {
+    public void addFromHome(Long productId, List<Long> productsId) {
         Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
+        List<Product> products = productsId.stream()
+                .map(repository::findById)
+                .map(op -> op.orElse(null))
+                .collect(Collectors.toList());
         products.forEach(p -> p.addToExchange(product));
         repository.save(product);
     }
