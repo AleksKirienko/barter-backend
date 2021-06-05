@@ -2,6 +2,9 @@ import java.util.*;
 
 public class Main {
 
+    private static final List<Vertex> alreadyInclude = new ArrayList<>();
+    private static final List<List<Vertex>> finalCycles = new ArrayList<>();
+
     private static boolean isContain(List<Vertex> a, List<Vertex> b) {
         for (Vertex i: b) {
             if (a.contains(i)) return true;
@@ -24,7 +27,7 @@ public class Main {
         Product twelve = new Product("12");
 
 
-        one.setProductsForExchange(new ArrayList<>(Arrays.asList(two, three, ten)));
+        /*one.setProductsForExchange(new ArrayList<>(Arrays.asList(two, three, ten)));
         two.setProductsForExchange(new ArrayList<>());
         three.setProductsForExchange(new ArrayList<>(Arrays.asList(four, six)));
         four.setProductsForExchange(new ArrayList<>(Collections.singletonList(five)));
@@ -35,34 +38,54 @@ public class Main {
         nine.setProductsForExchange(new ArrayList<>(Collections.singletonList(twelve)));
         ten.setProductsForExchange(new ArrayList<>(Arrays.asList(two, eleven)));
         eleven.setProductsForExchange(new ArrayList<>(Collections.singletonList(seven)));
-        twelve.setProductsForExchange(new ArrayList<>(Arrays.asList(seven, eleven)));
+        twelve.setProductsForExchange(new ArrayList<>(Arrays.asList(seven, eleven)));*/
+
+        one.setProductsForExchange(new ArrayList<>(Collections.singletonList(two)));
+        two.setProductsForExchange(new ArrayList<>(Collections.singletonList(three)));
+        three.setProductsForExchange(new ArrayList<>(Arrays.asList(four, five)));
+        four.setProductsForExchange(new ArrayList<>(Collections.singletonList(one)));
+        five.setProductsForExchange(new ArrayList<>(Collections.singletonList(four)));
+        six.setProductsForExchange(new ArrayList<>(Arrays.asList(five, eight)));
+        seven.setProductsForExchange(new ArrayList<>(Collections.singletonList(eight)));
+        eight.setProductsForExchange(new ArrayList<>(Collections.singletonList(six)));
 
 
-        List<Product> productList = new ArrayList<>(Arrays.asList(one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve));
+        List<Product> productList = new ArrayList<>(Arrays.asList(one, two, three, four, five, six, seven, eight));
 
         SearchPath s = new SearchPath(productList);
 
         s.buildMatrixHash();
 
         List<List<Vertex>> allCycles = s.getAllCycles();
-        for (List<Vertex> cycle: allCycles) {
+
+        while (chooseCycle(allCycles)) {}
+
+        for (List<Vertex> cycle: finalCycles) {
             for (Vertex vertex: cycle) {
                 System.out.print(vertex.getProduct().getName() + " - ");
             }
             System.out.println();
         }
 
+
+    }
+
+    private static boolean chooseCycle(List<List<Vertex>> allCycles) {
         int max = 0;
-        List<Vertex> maxCyc = new ArrayList<>();
+        int imax = 0;
         for (List<Vertex> cycle: allCycles) {
-            if (cycle.size() > max) {
+            if (cycle.size() > max && !isContain(cycle, alreadyInclude)) {
                 max = cycle.size();
-                maxCyc = cycle;
+                imax = allCycles.indexOf(cycle);
             }
         }
-
-        for (Vertex vertex: maxCyc) {
-            System.out.print(vertex.getProduct().getName() + " - ");
+        if (max != 0) {
+            alreadyInclude.addAll(allCycles.get(imax));
+            finalCycles.add(allCycles.get(imax));
+            allCycles.remove(allCycles.get(imax));
+            return true;
+        } else {
+            return false;
         }
     }
 }

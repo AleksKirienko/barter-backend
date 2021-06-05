@@ -19,7 +19,7 @@ public class SearchPath {
     public void buildMatrixHash() {
         List<Vertex> vertexes = new ArrayList<>();
         for (Product product : products) {
-            vertexes.add(new Vertex(product, false));
+            vertexes.add(new Vertex(product, Color.WHITE));
         }
 
         for (Vertex vertex : vertexes) {
@@ -33,29 +33,47 @@ public class SearchPath {
         }
 
         for (Map.Entry<Vertex, List<Vertex>> pair : matrix.entrySet()) {
-            dfsCycles(pair.getKey(), pair.getKey(), new ArrayList<>());
+            dfs(pair.getKey(), 0);
+        }
+
+        for (Map.Entry<Vertex, List<Vertex>> pair : matrix.entrySet()) {
+            List<Vertex> cycle = new ArrayList<>();
+            printCycle(pair.getKey(), cycle);
+            allCycles.add(cycle);
         }
     }
 
-    public void dfsCycles(Vertex start, Vertex current, List<Vertex> cycle) {
-
-        if (current.getProduct() == start.getProduct() && !cycle.isEmpty()) {
-            allCycles.add(new ArrayList<>(cycle));
-            return;
-        }
-
-        current.setColored(true);
-        cycle.add(current);
-        for (Vertex v : matrix.get(current)) {
-            if (!v.isColored() || v == start) {
-                dfsCycles(start, v, cycle);
+    private void dfs(Vertex vertex, int h) {
+        vertex.setColor(Color.GRAY);
+        vertex.setHeight(h);
+        for (Vertex v: matrix.get(vertex)) {
+            if (v.getColor() == Color.WHITE) {
+                v.setParent(vertex);
+                dfs(v, h+1);
+            } else if (v.getColor() == Color.GRAY) {
+                int len = vertex.getHeight() - v.getHeight() + 1;
+                if (v.getCycleSize() < len) {
+                    v.setCycleSize(len);
+                    v.setCycleFrom(vertex);
+                }
             }
         }
-        current.setColored(false);
-        cycle.remove(cycle.size()-1);
+        vertex.setColor(Color.BLACK);
+    }
+
+    private void printCycle(Vertex vertex, List<Vertex> cycle) {
+        if (vertex.getCycleFrom() == null) return;
+        Vertex v = vertex.getCycleFrom();
+        cycle.add(vertex);
+        while(vertex != v) {
+            cycle.add(v);
+            v = v.getParent();
+        }
     }
 
     public List<List<Vertex>> getAllCycles() {
         return allCycles;
     }
+
+
 }
