@@ -2,6 +2,7 @@ package ru.sibsutis.project.crud;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import ru.sibsutis.project.AddProductFaultException;
 import ru.sibsutis.project.NotFoundException;
 import ru.sibsutis.project.databases.Product;
 import ru.sibsutis.project.databases.User;
@@ -59,10 +60,7 @@ public class ProductService {
 
     public void addFromProfile(Long productId, List<Long> productsId) {
         Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
-        List<Product> products = productsId.stream()
-                .map(repository::findById)
-                .map(op -> op.orElse(null))
-                .collect(Collectors.toList());
+        List<Product> products = getProductsById(productId, productsId);
         products.forEach(product::addToExchange);
         repository.save(product);
     }
@@ -70,12 +68,19 @@ public class ProductService {
 
     public void addFromHome(Long productId, List<Long> productsId) {
         Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
-        List<Product> products = productsId.stream()
+        List<Product> products = getProductsById(productId, productsId);
+        products.forEach(p -> p.addToExchange(product));
+        repository.save(product);
+    }
+
+    private List<Product> getProductsById(Long productId, List<Long> productsId) {
+        if (productsId.contains(productId)) {
+            throw new AddProductFaultException("same_product");
+        }
+        return productsId.stream()
                 .map(repository::findById)
                 .map(op -> op.orElse(null))
                 .collect(Collectors.toList());
-        products.forEach(p -> p.addToExchange(product));
-        repository.save(product);
     }
 
     public void deleteExchange(Long availableId, Long exchangeId) {
