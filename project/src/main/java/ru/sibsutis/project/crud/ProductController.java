@@ -92,4 +92,9 @@ public class ProductController {
     public  List<ProductDtoWithId> getByName(@RequestParam String name) {
         return copyToDto(service.getByName(name.toLowerCase()));
     }
+
+    /*@PostMapping("/get_offer")
+    public List<List<ProductDtoWithId>> getOffer() {
+
+    }*/
 }

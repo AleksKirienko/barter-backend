@@ -3,11 +3,13 @@ package ru.sibsutis.project.crud;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import ru.sibsutis.project.NotFoundException;
+import ru.sibsutis.project.SearchPath;
+import ru.sibsutis.project.Vertex;
 import ru.sibsutis.project.databases.Product;
 import ru.sibsutis.project.databases.User;
 import ru.sibsutis.project.dto.ProductDto;
-import ru.sibsutis.project.dto.ProductDtoWithId;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -93,5 +95,56 @@ public class ProductService {
 
     public List<Product> getByName(String name) {
         return repository.findByName(name);
+    }
+
+    public List<List<Product>> getPaths() {
+        List<List<Product>> listCycles = new ArrayList<>();
+
+
+        SearchPath s = new SearchPath(repository.findAll());
+        s.buildMatrixHash();
+
+        List<List<Vertex>> allCycles = s.getAllCycles();
+
+        List<Vertex> alreadyInclude = new ArrayList<>();
+        List<List<Vertex>> finalCycles = new ArrayList<>();
+
+        while (chooseCycle(allCycles, alreadyInclude, finalCycles)) {}
+
+        for (List<Vertex> cycles: finalCycles) {
+            List<Product> products = new ArrayList<>();
+            for (Vertex vertex: cycles) {
+                products.add(vertex.getProduct());
+            }
+            listCycles.add(products);
+        }
+
+        return listCycles;
+    }
+
+    private static boolean chooseCycle(List<List<Vertex>> allCycles, List<Vertex> alreadyInclude, List<List<Vertex>> finalCycles) {
+        int max = 0;
+        int imax = 0;
+        for (List<Vertex> cycle: allCycles) {
+            if (cycle.size() > max && !isContain(cycle, alreadyInclude)) {
+                max = cycle.size();
+                imax = allCycles.indexOf(cycle);
+            }
+        }
+        if (max != 0) {
+            alreadyInclude.addAll(allCycles.get(imax));
+            finalCycles.add(allCycles.get(imax));
+            allCycles.remove(allCycles.get(imax));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static boolean isContain(List<Vertex> a, List<Vertex> b) {
+        for (Vertex i: b) {
+            if (a.contains(i)) return true;
+        }
+        return false;
     }
 }
