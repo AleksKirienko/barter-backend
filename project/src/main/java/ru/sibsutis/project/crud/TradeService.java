@@ -76,11 +76,9 @@ public class TradeService {
         for (List<Product> cycle : listCycles) {
             for (int i = 0; i < cycle.size() - 1; i++) {
                 Product product = cycle.get(i);
-                product.setStatus(false);
                 Trade trade = new Trade(product, cycle.get(i + 1), Instant.now());
                 repository.save(trade);
             }
-            cycle.get(cycle.size() - 1).setStatus(false);
             Trade trade = new Trade(cycle.get(cycle.size() - 1), cycle.get(0), Instant.now());
             repository.save(trade);
         }

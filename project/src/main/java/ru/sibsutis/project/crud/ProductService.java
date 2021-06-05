@@ -3,8 +3,6 @@ package ru.sibsutis.project.crud;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import ru.sibsutis.project.NotFoundException;
-import ru.sibsutis.project.SearchPath;
-import ru.sibsutis.project.Vertex;
 import ru.sibsutis.project.databases.Product;
 import ru.sibsutis.project.databases.User;
 import ru.sibsutis.project.dto.ProductDto;
@@ -24,7 +22,7 @@ public class ProductService {
     }
 
     public List<Product> getAll() {
-        return repository.findAll();
+        return repository.findAllByStatus(true);
     }
 
     public Product create(ProductDto productDto, Long userID) {
@@ -61,18 +59,14 @@ public class ProductService {
 
     public void addFromProfile(Long productId, List<Product> products) {
         Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
-        for (Product p : products) {
-            product.addToExchange(p);
-        }
+        products.forEach(product::addToExchange);
         repository.save(product);
     }
 
 
     public void addFromHome(Long productId, List<Product> products) {
         Product product = repository.findById(productId).orElseThrow(NotFoundException::new);
-        for (Product p : products) {
-            p.addToExchange(product);
-        }
+        products.forEach(p -> p.addToExchange(product));
         repository.save(product);
     }
 
@@ -94,7 +88,23 @@ public class ProductService {
     }
 
     public List<Product> getByName(String name) {
-        return repository.findByName(name);
+        List<Product> products = repository.findAll();
+        List<Product> match = new ArrayList<>();
+        for (Product product: products) {
+            if (product.getName().contains(name)) {
+                match.add(product);
+            }
+        }
+        return match;
+    }
+
+    public void deleteProductAfterExchange(Long id) {
+        Product p = repository.findById(id).orElseThrow(NotFoundException::new);
+        p.setOwner(null);
+        p.setStatus(false);
+        p.setProductsForExchange(null);
+        p.setUsersFaves(null);
+        repository.save(p);
     }
 
 

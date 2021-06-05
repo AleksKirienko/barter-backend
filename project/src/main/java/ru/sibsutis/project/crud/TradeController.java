@@ -22,8 +22,11 @@ public class TradeController {
     }
 
     private TradeDto copyToDto(Trade trade) {
-        TradeDto tradeDto = new TradeDto(trade.getSend().getOwner().getId(), trade.getSend().getId(), trade.getReceive().getId());
-        return tradeDto;
+        return new TradeDto(
+                trade.getSend().getOwner().getId(),
+                trade.getSend().getId(),
+                trade.getReceive().getId()
+        );
     }
 
     private List<TradeDto> copyToDto(List<Trade> trades) {

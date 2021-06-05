@@ -93,8 +93,8 @@ public class ProductController {
         return copyToDto(service.getByName(name.toLowerCase()));
     }
 
-    /*@PostMapping("/get_offer")
-    public List<List<ProductDtoWithId>> getOffer() {
-
-    }*/
+    @PostMapping("/delete_after_exchange")
+    public void deleteAfterExchange(@RequestParam Long productId) {
+        service.deleteProductAfterExchange(productId);
+    }
 }
