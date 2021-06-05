@@ -111,7 +111,7 @@ public class Product {
         productsForExchange.addAll(products);
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 

@@ -21,7 +21,8 @@ public class SearchPath {
     public void buildMatrixHash() {
         List<Vertex> vertexes = new ArrayList<>();
         for (Product product : products) {
-            vertexes.add(new Vertex(product, Color.WHITE));
+            if (product.getStatus())
+                vertexes.add(new Vertex(product, Color.WHITE));
         }
 
         for (Vertex vertex : vertexes) {
