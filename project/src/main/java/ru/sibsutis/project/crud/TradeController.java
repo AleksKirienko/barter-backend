@@ -22,10 +22,7 @@ public class TradeController {
     }
 
     private TradeDto copyToDto(Trade trade) {
-        TradeDto tradeDto = new TradeDto();
-        tradeDto.setUserId(trade.getSend().getOwner().getId());
-        tradeDto.setSendId(trade.getSend().getId());
-        tradeDto.setReceiveId(trade.getReceive().getId());
+        TradeDto tradeDto = new TradeDto(trade.getSend().getOwner().getId(), trade.getSend().getId(), trade.getReceive().getId());
         return tradeDto;
     }
 
