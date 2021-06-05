@@ -8,7 +8,9 @@ import ru.sibsutis.project.databases.Product;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TradeService {
@@ -48,21 +50,14 @@ public class TradeService {
     }
 
     private static boolean chooseCycle(List<List<Vertex>> allCycles, List<Vertex> alreadyInclude, List<List<Vertex>> finalCycles) {
-        int max = 0;
-        int imax = 0;
-        for (List<Vertex> cycle : allCycles) {
-            if (cycle.size() > max && !intersects(cycle, alreadyInclude)) {
-                max = cycle.size();
-                imax = allCycles.indexOf(cycle);
-            }
-        }
+        List<Vertex> maximum =allCycles.stream().max(Comparator.comparingInt(List::size)).orElse(null);
 
-        if (max == 0) {
+        if (maximum == null) {
             return false;
         }
-        alreadyInclude.addAll(allCycles.get(imax));
-        finalCycles.add(allCycles.get(imax));
-        allCycles.remove(allCycles.get(imax));
+        alreadyInclude.addAll(maximum);
+        finalCycles.add(maximum);
+        allCycles.remove(maximum);
         return true;
 
     }

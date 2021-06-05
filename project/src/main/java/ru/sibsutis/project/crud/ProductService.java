@@ -9,6 +9,7 @@ import ru.sibsutis.project.dto.ProductDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -89,13 +90,9 @@ public class ProductService {
 
     public List<Product> getByName(String name) {
         List<Product> products = repository.findAll();
-        List<Product> match = new ArrayList<>();
-        for (Product product: products) {
-            if (product.getName().contains(name)) {
-                match.add(product);
-            }
-        }
-        return match;
+        return products.stream()
+                .filter(product -> product.getName().contains(name))
+                .collect(Collectors.toList());
     }
 
     public void deleteProductAfterExchange(Long id) {

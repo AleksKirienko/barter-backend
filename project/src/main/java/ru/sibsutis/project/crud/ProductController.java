@@ -53,12 +53,12 @@ public class ProductController {
         return copyToDto(service.getFavesById(userId));
     }
 
-    @PostMapping("/fp")//todo
+    @PostMapping("/fp")
     public void addFromProfile(@RequestParam Long productId, @RequestBody List<Product> productsId) {
         service.addFromProfile(productId, productsId);
     }
 
-    @PostMapping("/fh")//todo
+    @PostMapping("/fh")
     public void addFromHomeOrFaves(@RequestParam Long productId, @RequestBody List<Product> productsId) {
         service.addFromHome(productId, productsId);
     }

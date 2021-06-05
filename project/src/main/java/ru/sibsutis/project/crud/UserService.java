@@ -2,12 +2,12 @@ package ru.sibsutis.project.crud;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 import ru.sibsutis.project.AuthorizationFault;
 import ru.sibsutis.project.NotFoundException;
 import ru.sibsutis.project.UserAlreadyExistException;
 import ru.sibsutis.project.databases.Product;
 import ru.sibsutis.project.databases.User;
-import org.springframework.stereotype.Service;
 import ru.sibsutis.project.dto.UserDto;
 
 @Service
@@ -38,12 +38,15 @@ public class UserService {
 
     public User authorization(String email, String password) {
         User user = repository.getUserByEmail(email);
-        if (user == null) throw new AuthorizationFault();
-        else {
-            boolean isCorrect = new BCryptPasswordEncoder().matches(password, user.getPassword());
-            if (isCorrect) return user;
-            else throw new AuthorizationFault();
+        if (user == null) {
+            throw new AuthorizationFault();
         }
+
+        boolean isCorrect = new BCryptPasswordEncoder().matches(password, user.getPassword());
+        if (!isCorrect) {
+            throw new AuthorizationFault();
+        }
+        return user;
     }
 
     public User getUserInfo(Long userId) {
