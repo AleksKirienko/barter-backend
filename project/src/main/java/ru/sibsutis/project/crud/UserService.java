@@ -56,6 +56,9 @@ public class UserService {
     public void addFaves(Long productId, Long userId) {
         Product product = productRepository.findById(productId).orElseThrow(NotFoundException::new);
         User user = repository.findById(userId).orElseThrow(NotFoundException::new);
+        if (product.getOwner() == user) {
+            return;
+        }
         user.addFavorites(product);
         repository.save(user);
     }
