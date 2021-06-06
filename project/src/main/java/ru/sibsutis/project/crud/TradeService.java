@@ -71,7 +71,7 @@ public class TradeService {
         return b.stream().anyMatch(a::contains);
     }
 
-    public List<Trade> sendOffer() {
+    public void sendOffer() {
         List<List<Product>> listCycles = getPaths();
         for (List<Product> cycle : listCycles) {
             for (int i = 0; i < cycle.size() - 1; i++) {
@@ -82,6 +82,16 @@ public class TradeService {
             Trade trade = new Trade(cycle.get(cycle.size() - 1), cycle.get(0), Instant.now());
             repository.save(trade);
         }
-        return repository.findAll();
+    }
+
+    public List<Trade> getByUserId(Long userId) {
+        List<Trade> trades = repository.findAll();
+        List<Trade> userTrades = new ArrayList<>();
+        trades.forEach(trade -> {
+            if (trade.getSend().getOwner().getId().equals(userId)) {
+                userTrades.add(trade);
+            }
+        });
+        return  userTrades;
     }
 }
