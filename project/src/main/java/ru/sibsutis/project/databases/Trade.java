@@ -1,4 +1,4 @@
-package ru.sibsutis.project;
+package ru.sibsutis.project.databases;
 
 import ru.sibsutis.project.databases.Product;
 

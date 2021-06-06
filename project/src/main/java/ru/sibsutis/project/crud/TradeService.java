@@ -2,7 +2,7 @@ package ru.sibsutis.project.crud;
 
 import org.springframework.stereotype.Service;
 import ru.sibsutis.project.SearchPath;
-import ru.sibsutis.project.Trade;
+import ru.sibsutis.project.databases.Trade;
 import ru.sibsutis.project.Vertex;
 import ru.sibsutis.project.databases.Product;
 
