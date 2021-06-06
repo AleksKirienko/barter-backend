@@ -7,13 +7,15 @@ public class ProductDtoWithId {
     private String category;
     private String description;
     private String image;
+    private Long ownerId;
 
-    public ProductDtoWithId(Long id, String name, String category, String description, String image) {
+    public ProductDtoWithId(Long id, String name, String category, String description, String image, Long ownerId) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.description = description;
         this.image = image;
+        this.ownerId = ownerId;
     }
 
     public ProductDtoWithId() {
@@ -58,5 +60,13 @@ public class ProductDtoWithId {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 }

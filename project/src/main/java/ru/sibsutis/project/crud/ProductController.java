@@ -21,6 +21,7 @@ public class ProductController {
     private ProductDtoWithId copyToDto(Product product) {
         ProductDtoWithId productDto = new ProductDtoWithId();
         BeanUtils.copyProperties(product, productDto, "owner", "status", "userFaves", "productsForExchange");
+        productDto.setOwnerId(product.getOwner().getId());
         return productDto;
     }
 
