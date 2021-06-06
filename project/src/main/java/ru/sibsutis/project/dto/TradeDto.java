@@ -2,25 +2,25 @@ package ru.sibsutis.project.dto;
 
 public class TradeDto {
     private final Long userId;
-    private final Long sendId;
-    private final Long receiveId;
+    private final ProductDtoWithId sendProduct;
+    private final ProductDtoWithId receiveProduct;
 
-    public TradeDto(Long userId, Long sendId, Long receiveId) {
+    public TradeDto(Long userId, ProductDtoWithId sendProduct, ProductDtoWithId receiveProduct) {
         this.userId = userId;
-        this.sendId = sendId;
-        this.receiveId = receiveId;
+        this.sendProduct = sendProduct;
+        this.receiveProduct = receiveProduct;
     }
 
     public Long getUserId() {
         return userId;
     }
 
-    public Long getSendId() {
-        return sendId;
+    public ProductDtoWithId getSendProduct() {
+        return sendProduct;
     }
 
-    public Long getReceiveId() {
-        return receiveId;
+    public ProductDtoWithId getReceiveProduct() {
+        return receiveProduct;
     }
 
 }
