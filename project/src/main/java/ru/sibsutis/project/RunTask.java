@@ -22,7 +22,7 @@ public class RunTask{
         int minute = ldt.getMinute();
         int second = ldt.getSecond();
 
-        if (hour == 20 && minute == 0 && second == 0) {
+        if (hour == 20 && minute == 3 && second == 0) {
             timer.schedule(tradeTask, 0, 24*60*60*1000);
         } else {
             Calendar dayAfter = Calendar.getInstance();
