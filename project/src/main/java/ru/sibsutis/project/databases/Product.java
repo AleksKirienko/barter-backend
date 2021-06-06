@@ -23,7 +23,7 @@ public class Product {
     private boolean status;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_products", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name ="user_id"))
+    @JoinTable(uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "product_id"})}, name = "users_products", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name ="user_id"))
     List<User> usersFaves;
 
     @ManyToMany(fetch = FetchType.EAGER)
