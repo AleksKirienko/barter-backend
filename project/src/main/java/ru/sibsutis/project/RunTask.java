@@ -1,6 +1,7 @@
 package ru.sibsutis.project;
 
 import org.springframework.stereotype.Component;
+import ru.sibsutis.project.crud.ProductService;
 import ru.sibsutis.project.crud.TradeService;
 
 import java.time.Instant;
@@ -12,9 +13,9 @@ import java.util.Timer;
 @Component
 public class RunTask{
 
-    public RunTask(TradeService service) {
+    public RunTask(TradeService service, ProductService productService) {
         Timer timer = new Timer();
-        TradeTask tradeTask = new TradeTask(service);
+        TradeTask tradeTask = new TradeTask(service, productService);
         Instant instant = Instant.now();
         LocalDateTime ldt = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
 
