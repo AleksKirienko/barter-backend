@@ -36,7 +36,9 @@ public class SearchPath {
         }
 
         for (Map.Entry<Vertex, List<Vertex>> pair : matrix.entrySet()) {
-            dfs(pair.getKey(), 0);
+            if (pair.getKey().getColor() != Color.BLACK) {
+                dfs(pair.getKey(), 0);
+            }
         }
 
         for (Map.Entry<Vertex, List<Vertex>> pair : matrix.entrySet()) {

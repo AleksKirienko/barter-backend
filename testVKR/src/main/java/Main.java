@@ -40,14 +40,23 @@ public class Main {
         eleven.setProductsForExchange(new ArrayList<>(Collections.singletonList(seven)));
         twelve.setProductsForExchange(new ArrayList<>(Arrays.asList(seven, eleven)));*/
 
-        one.setProductsForExchange(new ArrayList<>(Collections.singletonList(two)));
+        /*one.setProductsForExchange(new ArrayList<>(Collections.singletonList(two)));
         two.setProductsForExchange(new ArrayList<>(Collections.singletonList(three)));
         three.setProductsForExchange(new ArrayList<>(Arrays.asList(four, five)));
         four.setProductsForExchange(new ArrayList<>(Collections.singletonList(one)));
         five.setProductsForExchange(new ArrayList<>(Collections.singletonList(four)));
         six.setProductsForExchange(new ArrayList<>(Arrays.asList(five, eight)));
         seven.setProductsForExchange(new ArrayList<>(Collections.singletonList(eight)));
-        eight.setProductsForExchange(new ArrayList<>(Collections.singletonList(six)));
+        eight.setProductsForExchange(new ArrayList<>(Collections.singletonList(six)));*/
+
+        one.setProductsForExchange(new ArrayList<>(Collections.singletonList(two)));
+        two.setProductsForExchange(new ArrayList<>(Collections.singletonList(three)));
+        three.setProductsForExchange(new ArrayList<>(Arrays.asList(five)));
+        four.setProductsForExchange(new ArrayList<>(Collections.singletonList(one)));
+        five.setProductsForExchange(new ArrayList<>(Arrays.asList(four, six)));
+        six.setProductsForExchange(new ArrayList<>(Arrays.asList(seven)));
+        seven.setProductsForExchange(new ArrayList<>(Collections.singletonList(eight)));
+        eight.setProductsForExchange(new ArrayList<>(Arrays.asList(six, five)));
 
 
         List<Product> productList = new ArrayList<>(Arrays.asList(one, two, three, four, five, six, seven, eight));
@@ -58,8 +67,18 @@ public class Main {
 
         List<List<Vertex>> allCycles = s.getAllCycles();
 
+        System.out.println("All cycles: ");
+        for (List<Vertex> cycle: allCycles) {
+            for (Vertex vertex: cycle) {
+                System.out.print(vertex.getProduct().getName() + " - ");
+            }
+            if (!cycle.isEmpty())
+                System.out.println();
+        }
+
         while (chooseCycle(allCycles)) {}
 
+        System.out.println("Final cycles: ");
         for (List<Vertex> cycle: finalCycles) {
             for (Vertex vertex: cycle) {
                 System.out.print(vertex.getProduct().getName() + " - ");

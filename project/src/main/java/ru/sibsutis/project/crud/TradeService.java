@@ -24,7 +24,6 @@ public class TradeService {
     private List<List<Product>> getPaths() {
         List<List<Product>> listCycles = new ArrayList<>();
 
-
         SearchPath s = new SearchPath(productRepository.findAll());
         s.buildMatrixHash();
 

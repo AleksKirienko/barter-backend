@@ -8,6 +8,7 @@ import ru.sibsutis.project.databases.Product;
 import ru.sibsutis.project.databases.User;
 import ru.sibsutis.project.dto.ProductDto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,10 @@ public class ProductService {
 
     public List<Product> getById(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
-        return repository.findByOwner(user);
+        List<Product> products = repository.findByOwner(user);
+        return products.stream()
+                .filter(Product::getStatus)
+                .collect(Collectors.toList());
     }
 
     public List<Product> getFavesById(Long userId) {
@@ -109,7 +113,6 @@ public class ProductService {
 
     public void deleteProductAfterExchange(Long id) {
         Product p = repository.findById(id).orElseThrow(NotFoundException::new);
-        p.setOwner(null);
         p.setStatus(false);
         p.setProductsForExchange(null);
         p.setUsersFaves(null);
